@@ -1,0 +1,91 @@
+<html>
+<head>
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script src="js/app.js" type="text/javascript"></script>
+  <title>Category tree</title>
+  <style>
+.cat-link {
+  color: blue;
+  cursor: hand;
+}
+.cat-link:hover {
+  text-decoration: underline;
+}
+
+.add-link {
+  color: #5E5E5E;
+  text-decoration: none;
+}
+
+.add-link:hover {
+  border-bottom: 1px solid blue;
+}
+.cycle {
+  color: red;
+}
+
+  /*
+  Tree structure using CSS:
+  http://stackoverflow.com/questions/14922247/how-to-get-a-tree-in-html-using-pure-css
+  */
+
+.tree, .tree ul{
+  font: normal normal 14px/20px Helvetica, Arial, sans-serif;  
+  list-style-type: none;
+  margin-left: 0 0 0 10px;
+  padding: 0;
+  position: relative;   
+  overflow:hidden;    
+}
+
+.tree li{
+  margin: 0;
+  padding: 0 12px;  
+  position: relative;   
+}
+  
+.tree li::before, .tree li::after{
+  content: '';
+  position: absolute;
+  left: 0;
+}
+
+/* horizontal line on inner list items */
+.tree li::before{
+  border-top: 1px solid #999;
+  top: 10px;
+  width: 10px;
+  height: 0;    
+}
+
+/* vertical line on list items */   
+.tree li:after{
+  border-left: 1px solid #999;
+  height: 100%;
+  width: 0px;
+  top: -10px; 
+}
+
+/* lower line on list items from the first level because they don't have parents */
+.tree > li::after{
+  top: 10px;
+}
+
+/* hide line from the last of the first level list items */
+.tree > li:last-child::after{
+  display: none;
+}
+
+
+.tree ul:last-child li:last-child:after{
+  height:20px;
+}
+  </style>
+</head>
+<body>
+  <h1>Wikipedia category tree</h1>
+  <p>Explore Wikipedia's category structure. Our graph begins with <a href="https://en.wikipedia.org/wiki/Category:Contents" target="_blank">Category:Contents</a>.  Note that you may notice <a href="https://en.wikipedia.org/wiki/Cycle_(graph_theory)" target="_blank">cycles</a> in the category structure (marked with a <span style="color:red;">red warning</span>). This is a test for <a href="https://github.com/hatnote/omwcat" traget="_blank">another project</a>.</p>
+  <span id="cats"></span>
+  <p><a href="http://alpha.hatnote.com/">back to alpha projects</a> on hatnote.</p>
+</body>
+</html>
