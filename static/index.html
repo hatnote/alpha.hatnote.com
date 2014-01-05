@@ -1,21 +1,59 @@
 <html>
 <head>
 	<title>alpha</title>
+	<style>
+	body {
+		font-family: Helvetica, sans-serif;
+		font-size: 0.85em;
+		line-height: 1.33em;
+		margin: 0;
+	}
+	h1 {
+		min-height: 1rem;
+		font-size: 2rem;	
+		margin: 0;
+		line-height: 1.33em;
+		background: #f8f8f8;
+		padding: 0.4em;
+		border-bottom: 1px solid #d8e6ec;
+	}
+	h2 {
+		margin-top: 2em;
+	}
+	a {
+		color: #3B579D;
+		text-decoration: underline;
+	}
+	a:hover {
+		background-color: #FFFFCC;
+	}
+	.subheader {
+		font-size: 1rem;
+		font-weight: 400;
+		margin: 0;
+		padding: 0;
+		line-height: 1.2;
+		color: rgba(0,0,0,.5);
+	}
+	.content {
+		margin: 2em;
+	}
+	</style>
 </head>
 <body>
-	<h1>alpha projects</h1>
-	<p>list of examples, tests, and other</p>
-	<ul>
-		<li><a href="wikimon-test/index.html">live recent changes test</a></li>
-		<li><a href="cat-tree/index.html">cat-tree</a></li>
-	</ul>
+	<h1>alpha projects <div class="subheader">list of examples, tests, and other half-built ideas</div></h1>
+	<div class="content">
+		<ul>
+			<li><a href="wikimon-test/index.html">wikimon</a></li>
+			<li><a href="cat-tree/index.html">cat-tree</a></li>
+		</ul>
 
-	<h2>Other links</h2>
-	<ul>
-		<li><a href="https://github.com/hatnote">our projects on github</a></li>
-		<li><a href="http://blog.hatnote.com/">blog</a></li>
-		<li><a href="http://seealso.hatnote.com/">see also</a></li>
-	</ul>
+		<h2>Other links</h2>
+		<ul>
+			<li><a href="https://github.com/hatnote">source on github</a></li>
+			<li><a href="http://blog.hatnote.com/">blog</a></li>
+		</ul>
+	</div>
 
 	<script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
