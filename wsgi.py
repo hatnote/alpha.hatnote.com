@@ -18,7 +18,7 @@ def publish():
 
 
 application = Application([('/publish', publish, render_basic),
-                           ('/publish/meta', MetaApplication)])
+                           ('/publish/meta', MetaApplication())])
 
 
 if __name__ == '__main__':
