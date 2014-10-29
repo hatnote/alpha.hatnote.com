@@ -1,0 +1,123 @@
+<html>
+<head>
+  <title>Happy birthday to Wikidata</title>
+  <script src="js/svg.js"></script>
+  <script src="js/jquery.js"></script>
+  <script src="js/app.js"></script>
+  <link href='http://fonts.googleapis.com/css?family=Lato:100,400' rel='stylesheet' type='text/css'>
+  <style>
+    body {
+      margin-top: 3em;
+      background-color: #990000;
+      font-family: sans-serif;
+      font-size: 10pt;
+      color: #484848;
+    }
+    h1 {
+      font-family: 'Lato', sans-serif;
+      margin: 0 auto 0.5em auto;
+      font-size: 4em;
+      text-align: center;
+    }
+    h1 a {
+      display: block;
+      color: #484848;
+    }
+    .intro a {
+      color: #484848;
+    }
+    h1 a:hover, .intro a:hover {
+      border: none;
+    }
+    a {
+      text-decoration: none;
+      color: blue;
+    }
+    a:hover {
+      border-bottom: 1px solid #990000;
+    }
+    ul {
+      list-style: none;
+      padding: 0.5em;
+    }
+    li span {
+      text-align: right;
+    }
+    li span a {
+      color: #000;
+    }
+    .intro {
+      margin: auto auto auto 0;
+      font-family: 'Lato', sans-serif;
+      font-weight: 100;
+      font-size: 2.5em;
+      text-align: center;
+    }
+    .content {
+      background: #fff;
+      padding: 0.5em;
+      width: 30em;
+      margin: 1em auto;
+    }
+  </style>
+  <script>
+  $(function() {
+
+    var logo = new AnimatedLogo('drawing');
+    var wiki = logo.translate('happy birthday');
+    var bg = ['#990000', '#339966', '#006699'][Math.round(Math.random() * 3)];
+
+    $('h1 a').hover(function() {
+      $(this).html('Q2013');
+    }, function() {
+      $(this).html('WIKIDATA');
+    });
+
+    $('#birthday').hover(function() {
+      $(this).html('P571');
+    }, function() {
+      $(this).html('birthday');
+    });
+
+    $('body').css('background-color', bg);
+
+    setTimeout(function() {
+      var wikidata_rc = new wikipediaSocket('ws://alpha.hatnote.com:9220', 
+                                            function(data) {
+        if (data['ns'] === 'Main' && data['page_title'].indexOf('Q') === 0) {
+          logo.add(Math.abs(data['change_size'] / 40));
+          var verb = data['change_size'] > 0 ? 'added' : 'removed'
+          var user = $('<a>').attr({
+            href: 'https://wikidata.org/wiki/User:' + data['user'], 
+            target: '_blank'
+          }).html(data['user']);
+          var user_span = $('<span>')
+            .html(user)
+            .append(' ' + verb + ' ' + Math.abs(data['change_size']) + ' bytes');
+          var item = $('<a>').attr({
+            href: data['url'], 
+            target: '_blank'
+          }).html(data['page_title']);
+          var li = $('<li>')
+            .html(item)
+            .append(' - ')
+            .append(user_span);
+          $('#rc').prepend(li);
+          if ($('#rc li').length > 25) {
+            $('#rc li').slice(25, 26).remove();
+          }
+        }
+      });
+    }, 300);
+  });
+  </script>
+</head>
+<body>
+  <div class="content">
+    <p class="intro">happy second <a id="birthday" href="https://www.wikidata.org/wiki/Property:P571">birthday</a></p>
+    <h1><a href="https://www.wikidata.org/wiki/Q2013">WIKIDATA</a></h1>
+    <div id="drawing"></div>
+    <ul id="rc"></ul>
+  </div>
+</body>
+</html>
