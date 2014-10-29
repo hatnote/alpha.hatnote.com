@@ -13,11 +13,14 @@
       font-size: 10pt;
       color: #484848;
     }
-    h1 {
+    h1, h2 {
       font-family: 'Lato', sans-serif;
       margin: 0 auto 0.5em auto;
       font-size: 4em;
       text-align: center;
+    }
+    h2 {
+      font-weight: 100;
     }
     h1 a {
       display: block;
@@ -28,6 +31,7 @@
     }
     h1 a:hover, .intro a:hover {
       border: none;
+      color: #990000;
     }
     a {
       text-decoration: none;
@@ -57,15 +61,38 @@
       background: #fff;
       padding: 0.5em;
       width: 30em;
+      height: 45em;
+      overflow: hidden;
       margin: 1em auto;
+    }
+    .more {
+      margin: 2em auto;
+      width: 40em;
+      color: #fff;
+      font-size: 1.2em;
+      line-height: 1.5em;
+    }
+    .more a {
+      padding: 0.1em;
+      color: #fff;
+      text-decoration: underline;
+    }
+    .more a:hover {
+      background-color: #fff;
+      color: #006699;
+    }
+    #count {
+      background-color: #fff;
+      color: #990000;
+      padding: 0 0.2em;
     }
   </style>
   <script>
+  var article_count = 12707150;
   $(function() {
 
     var logo = new AnimatedLogo('drawing');
     var wiki = logo.translate('happy birthday');
-    var bg = ['#990000', '#339966', '#006699'][Math.round(Math.random() * 3)];
 
     $('h1 a').hover(function() {
       $(this).html('Q2013');
@@ -79,11 +106,15 @@
       $(this).html('birthday');
     });
 
-    $('body').css('background-color', bg);
+    $('body').css('background-color', ['#990000', '#339966', '#006699'][Math.round(Math.random() * 3)]);
 
     setTimeout(function() {
       var wikidata_rc = new wikipediaSocket('ws://alpha.hatnote.com:9220', 
                                             function(data) {
+        if (data['is_new']) {
+          $('#count').html(num_w_commas(article_count + 1));
+        }
+
         if (data['ns'] === 'Main' && data['page_title'].indexOf('Q') === 0) {
           logo.add(Math.abs(data['change_size'] / 40));
           var verb = data['change_size'] > 0 ? 'added' : 'removed'
@@ -108,7 +139,11 @@
           }
         }
       });
-    }, 300);
+    }, 550);
+    $.getJSON('https://www.wikidata.org/w/api.php?action=query&meta=siteinfo&siprop=statistics&format=json&callback=?', function(data) {
+      article_count = data['query']['statistics']['articles'];
+      $('#count').html(num_w_commas(article_count));
+    });
   });
   </script>
 </head>
@@ -118,6 +153,11 @@
     <h1><a href="https://www.wikidata.org/wiki/Q2013">WIKIDATA</a></h1>
     <div id="drawing"></div>
     <ul id="rc"></ul>
+  </div>
+  <div class="more">
+    <h2>October 29, 2014</h2>
+    <p>Wikidata is celebrating over two years of community-powered structured data. Wikidata serves over <span id="count">12,707,150</span> machine-readable items to Wikipedia and other projects from a huge data repository (and it's constantly growing!). You can use wikidata to describe the <a href="https://www.wikidata.org/wiki/Q15304616">human genome</a>, <a href="https://www.wikidata.org/wiki/Q42">biographies</a>, and <a href="https://www.wikidata.org/wiki/Q7257">much more</a>. <a href="https://www.wikidata.org/wiki/Wikidata:Tours">Learn how to contribute</a>!</p>
+    <p>Happy birthday from <a href="https://twitter.com/sklaporte">Stephen LaPorte</a> and <a href="https://twitter.com/mhashemi">Mahmoud Hashemi</a> at <a href="http://blog.hatnote.com/">hatnote</a>.</p>
   </div>
 </body>
 </html>

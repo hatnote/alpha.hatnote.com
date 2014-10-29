@@ -11,6 +11,11 @@ function AnimatedLogo(id) {
   return this
 }
 
+function num_w_commas(x) {
+  // from http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 AnimatedLogo.prototype.add = function(size, scolor) {
   var thirds = Math.ceil(this.rects.children().length / 3),
       max_x = $(window).width(),
