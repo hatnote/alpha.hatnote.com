@@ -1,4 +1,4 @@
-Werkzeug==0.9.4
+Werkzeug==0.15.3
 argparse==1.2.1
 -e git+https://github.com/mahmoud/clastic.git@31faa413b5647d318af7c638245230d3794010d2#egg=clastic-master
 wsgiref==0.1.2
